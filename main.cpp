@@ -3,9 +3,11 @@
 #include <fstream>
 
 using namespace std;
-
+fstream f;
 unsigned  t1, t2;
-fstream bin;
+int less=0;
+float middle;
+
 
 struct item{
     int cod;
@@ -35,6 +37,26 @@ int file_Size=34;
 
 string name="Nombre_";
 
+int ss(int quantity){
+    int g =quantity - 1;
+    while(less<=g)
+    {
+        middle = (g + less)/2;
+
+        if(key<f[middle])
+        {
+            g = middle - 1;
+        }
+        else if(key>f[middle])
+        {
+            less = middle + 1;
+        }
+        else
+        {
+            return middle;
+        }
+    }
+}
 
 void write_on_file(string file_name)
 {
@@ -74,38 +96,19 @@ void read(string file_name, int pos)
 int BinarySearch(int key,int quantity)
 {
     iniciar();
-    int less = 0;
     int greaters = quantity - 1;
-    float middle;
     ifstream readfile("record.bin",ios::in);
     if(!readfile)
     {
         cerr<<"No se puede abrir el archivo"<<endl;
         exit(0);
     }
-    int code;
-    char name[30];
-    while(readfile>>code>>name)
-    {
-        bin.push_back(code);
-    }
-    while(less<=greaters)
-    {
-        middle = (greaters + less)/2;
 
-        if(key<bin[middle])
-        {
-            greaters = middle - 1;
-        }
-        else if(key>bin[middle])
-        {
-            less = middle + 1;
-        }
-        else
-        {
-            return middle;
-        }
+    while(readfile>>item.cod>>item.name)
+    {
+        f.push_back(item.cod);
     }
+    ss(quantity);
     terminar();
     return -1;
 }
